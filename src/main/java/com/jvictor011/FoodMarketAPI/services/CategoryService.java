@@ -4,6 +4,8 @@ import com.jvictor011.FoodMarketAPI.domain.category.Category;
 import com.jvictor011.FoodMarketAPI.domain.category.CategoryDTO;
 import com.jvictor011.FoodMarketAPI.domain.category.exception.CategoryNotFoundException;
 import com.jvictor011.FoodMarketAPI.repositories.CategoryRepository;
+import com.jvictor011.FoodMarketAPI.services.aws.AwsSnsService;
+import com.jvictor011.FoodMarketAPI.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +14,19 @@ import java.util.Optional;
 @Service
 public class CategoryService {
     private final CategoryRepository repository;
+    private final AwsSnsService awsSnsService;
 
-    public CategoryService(CategoryRepository repository){
+    public CategoryService(CategoryRepository repository, AwsSnsService awsSnsService){
         this.repository = repository;
+        this.awsSnsService = awsSnsService;
     }
 
     public Category create(CategoryDTO categoryData){
         Category newCategory = new Category(categoryData);
         this.repository.save(newCategory);
+
+        this.awsSnsService.publish(new MessageDTO(newCategory.toString()));
+
         return newCategory;
     }
 
@@ -39,6 +46,9 @@ public class CategoryService {
         if (!categoryData.description().isEmpty()) category.setDescription(categoryData.description());
 
         this.repository.save(category);
+
+        this.awsSnsService.publish(new MessageDTO(category.toString()));
+
         return category;
     }
 

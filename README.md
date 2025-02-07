@@ -28,7 +28,6 @@ API de gerenciamento de categorias e produtos de um mercado, desenvolvida com **
 
 - **GET /categories**: Retorna todas as categorias.
 - **POST /categories**: Cria uma nova categoria.
-- **GET /categories/{id}**: Retorna a categoria pelo ID.
 - **PUT /categories/{id}**: Atualiza uma categoria.
 - **DELETE /categories/{id}**: Exclui uma categoria.
 
@@ -36,7 +35,6 @@ API de gerenciamento de categorias e produtos de um mercado, desenvolvida com **
 
 - **GET /products**: Retorna todos os produtos.
 - **POST /products**: Cria um novo produto.
-- **GET /products/{id}**: Retorna o produto pelo ID.
 - **PUT /products/{id}**: Atualiza um produto.
 - **DELETE /products/{id}**: Exclui um produto.
 
@@ -66,7 +64,8 @@ API de gerenciamento de categorias e produtos de um mercado, desenvolvida com **
  ```bash
  {
    "title": "Bebidas",
-   "description": "Categoria para bebidas variadas."
+   "description": "Categoria para bebidas variadas.",
+   "ownerId": "ownerId"
  }
  ```
 ### Criar Produto
@@ -76,7 +75,8 @@ API de gerenciamento de categorias e produtos de um mercado, desenvolvida com **
    "title": "Coca-Cola",
    "description": "Refrigerante de cola",
    "price": 5.99,
-   "categoryId": "id_da_categoria"
+   "categoryId": "id_da_categoria",
+   "ownerId": "ownerId"
  }
  ```
 
